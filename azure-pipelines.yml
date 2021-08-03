@@ -51,6 +51,8 @@ stages:
                     env | sort
                     pwd
                     ls -alt $(Pipeline.Workspace)
+                    aikey=$(yq e '.azure.application-insights.instrumentation-key' $(Pipeline.Workspace)/allfiles/app.yml)
+                    echo $aikey
               - task: Kubernetes@1
                 displayName: 'Create ConfigMap'
                 inputs:
