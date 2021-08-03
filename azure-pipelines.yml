@@ -65,7 +65,7 @@ stages:
                   configMapName: $(configMap)
                   configMapArguments: >
                     --from-file=$(Pipeline.Workspace)/allfiles/game.properties
-                    --from-file=application.yml=$(Pipeline.Workspace)/allfiles/app.yml
+                    --from-file=application-yml=$(Pipeline.Workspace)/allfiles/app.yml
                     --from-literal=azure.application-insights.instrumentation-key=$(AI_KEY)
               - task: KubernetesManifest@0
                 displayName: Deploy to Kubernetes cluster
