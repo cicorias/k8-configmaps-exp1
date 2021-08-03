@@ -1,0 +1,16 @@
+apiVersion: v1
+data:
+  enemies: aliens
+  enemies.cheat: "true"
+  enemies.cheat.level: noGoodRotten
+  lives: "3"
+  secret.code.allowed: "true"
+  secret.code.lives: "30"
+  secret.code.passphrase: UUDDLRLRBABAS
+kind: ConfigMap
+metadata:
+  creationTimestamp: "2021-08-03T08:44:07Z"
+  name: my-config
+  namespace: default
+  resourceVersion: "10011"
+  uid: 85b2beb6-644a-4128-b82a-fbbb242eafa4

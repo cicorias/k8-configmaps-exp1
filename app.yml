@@ -1,0 +1,7 @@
+spring:
+  boot:
+    name: fizbuzz
+
+azure:
+  application-insights:
+    instrumentation-key: ~

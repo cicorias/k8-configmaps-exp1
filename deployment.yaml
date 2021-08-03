@@ -9,18 +9,37 @@ spec:
       imagePullPolicy: Always
       command:
         - "/kuard"
-        - "$(EXTRA_PARAM)" 
+        # - "$(EXTRA_PARAM)" 
       env:
-        - name: ANOTHER_PARAM
+        - name: GAME_PARM
           valueFrom:
             configMapKeyRef:
               name: my-config
-              key: another-param
-        - name: EXTRA_PARAM
+              key: game.properties  #: enemies.cheat.level
+              optional: true
+              
+      
+        # - name: SPECIAL_LEVEL_KEY
+        #   valueFrom:
+        #     configMapKeyRef:
+        #       name: my-config
+        #       key: enemies
+        #       optional: false
+        # - name: ANOTHER_PARAM
+        #   valueFrom:
+        #     configMapKeyRef:
+        #       name: my-config
+        #       key: another-param
+        - name: APPLICATIONINSIGHTS_CONNECTION_STRING
           valueFrom:
             configMapKeyRef:
               name: my-config
-              key: extra-param
+              key: azure.application-insights.instrumentation-key
+        # - name: EXTRA_PARAM
+        #   valueFrom:
+        #     configMapKeyRef:
+        #       name: my-config
+        #       key: extra-param
       volumeMounts:
         - name: config-volume
           mountPath: /config
