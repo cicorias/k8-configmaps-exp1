@@ -33,8 +33,8 @@ stages:
                   configMapName: $(configMap)
                   configMapArguments: >
                     --from-file $(Pipeline.Workspace)/game.properties
-                    --from-literal=azure.application-insights.instrumentation-key=$(yq e '.azure.application-insights.instrumentation-key' $(Pipeline.Workspace)/app.yml)
-                    --from-file=application.yml=app.yml
+                  #  --from-literal=azure.application-insights.instrumentation-key=$(yq e '.azure.application-insights.instrumentation-key' $(Pipeline.Workspace)/app.yml)
+                  #  --from-file=application.yml=$(Pipeline.Workspace)/app.yml
 
 
               - task: KubernetesManifest@0
