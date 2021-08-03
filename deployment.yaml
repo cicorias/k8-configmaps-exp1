@@ -23,7 +23,7 @@ spec:
           valueFrom:
             configMapKeyRef:
               name: my-config
-              key: appplication-yml
+              key: application-yml
               #optional: true
         # - name: SPECIAL_LEVEL_KEY
         #   valueFrom:
