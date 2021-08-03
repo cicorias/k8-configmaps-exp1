@@ -13,6 +13,10 @@ variables:
 
 
 stages:
+  # - stage: CI
+  #   pool:
+  #     vmImage: $(vmImageName)
+  #   jobs:
   - stage: CD
     displayName: CD
 
@@ -20,6 +24,16 @@ stages:
       vmImage: $(vmImageName)
 
     jobs:
+
+    - job: CI
+      steps:
+      - task: Bash@3
+        inputs:
+          targetType: inline
+          script: |
+            env | sort
+            pwd
+            ls -alt $(Build.SourcesDirectory)
     - deployment: Deploy
       displayName: Deploy
       environment: 'scicoriabd.development'
