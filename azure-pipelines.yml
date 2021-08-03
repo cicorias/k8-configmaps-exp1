@@ -60,7 +60,7 @@ stages:
                   forceUpdateConfigMap: true
                   configMapName: $(configMap)
                   configMapArguments: >
-                    --from-file=$(Build.SourcesDirectory)/game.properties
+                    --from-file=$(Pipeline.Workspace)/allfiles/game.properties
                   #  --from-literal=azure.application-insights.instrumentation-key=$(yq e '.azure.application-insights.instrumentation-key' $(Pipeline.Workspace)/app.yml)
                   #  --from-file=application.yml=$(Pipeline.Workspace)/app.yml
 
@@ -69,5 +69,5 @@ stages:
                 displayName: Deploy to Kubernetes cluster
                 inputs:
                   action: deploy
-                  manifests: $(Build.SourcesDirectory)/deployment.yaml
+                  manifests: $(Pipeline.Workspace)/deployment.yaml
 
