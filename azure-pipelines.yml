@@ -35,7 +35,7 @@ stages:
             ls -alt
       - publish:  $(System.DefaultWorkingDirectory)
         artifact: allfiles
-        
+
     - deployment: Deploy
       dependsOn: Ci
       displayName: Deploy
@@ -50,7 +50,7 @@ stages:
                   script: |
                     env | sort
                     pwd
-                    ls -alt $(Build.SourcesDirectory)
+                    ls -alt $(Pipeline.Workspace)
               - task: Kubernetes@1
                 displayName: 'Create ConfigMap'
                 inputs:
