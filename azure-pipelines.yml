@@ -23,6 +23,13 @@ stages:
         runOnce:
           deploy:
             steps:
+              - task: Bash@3
+                inputs:
+                  targetType: inline
+                  script: |
+                    env | sort
+                    pwd
+                    ls -alt
               - task: Kubernetes@1
                 displayName: 'Create ConfigMap'
                 inputs:
@@ -32,7 +39,7 @@ stages:
                   forceUpdateConfigMap: true
                   configMapName: $(configMap)
                   configMapArguments: >
-                    --from-file $(Pipeline.Workspace)/game.properties
+                    --from-file=$(Pipeline.Workspace)/game.properties
                   #  --from-literal=azure.application-insights.instrumentation-key=$(yq e '.azure.application-insights.instrumentation-key' $(Pipeline.Workspace)/app.yml)
                   #  --from-file=application.yml=$(Pipeline.Workspace)/app.yml
 
