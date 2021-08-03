@@ -32,7 +32,10 @@ stages:
           script: |
             env | sort
             pwd
-            ls -alt $(Build.SourcesDirectory)
+            ls -alt
+      - publish:  $(System.DefaultWorkingDirectory)
+        artifact: allfiles
+        
     - deployment: Deploy
       dependsOn: Ci
       displayName: Deploy
