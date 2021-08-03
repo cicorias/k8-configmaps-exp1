@@ -1,19 +1,8 @@
 trigger:
   - main
 
-resources:
-  repositories:
-    - repository: self
-    - repository: templates
-      type: git
-      name: BrightDrop/azdo-pipelinetemplates
-      ref: refs/heads/main
-
 variables:
   dockerRegistryServiceConnection: 'shdcrbdppe1eus2cr'
-  imageRepository: 'particligt-api'
-  dockerfilePath: '**/Dockerfile'
-  containerRegistry: 'shdcrbdppe1eus2cr.azurecr.io'
   tag: '$(Build.BuildId)'
   configMap: my-config
   vmImageName: ubuntu-20.04
