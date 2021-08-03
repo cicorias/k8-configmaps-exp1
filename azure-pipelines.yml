@@ -24,7 +24,6 @@ stages:
       vmImage: $(vmImageName)
 
     jobs:
-
     - job: CI
       steps:
       - task: Bash@3
@@ -35,6 +34,7 @@ stages:
             pwd
             ls -alt $(Build.SourcesDirectory)
     - deployment: Deploy
+      dependsOn: Ci
       displayName: Deploy
       environment: 'scicoriabd.development'
       strategy:
