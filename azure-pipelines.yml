@@ -1,0 +1,56 @@
+trigger:
+  - main
+
+resources:
+  repositories:
+    - repository: self
+    - repository: templates
+      type: git
+      name: BrightDrop/azdo-pipelinetemplates
+      ref: refs/heads/main
+
+variables:
+  dockerRegistryServiceConnection: 'shdcrbdppe1eus2cr'
+  imageRepository: 'particligt-api'
+  dockerfilePath: '**/Dockerfile'
+  containerRegistry: 'shdcrbdppe1eus2cr.azurecr.io'
+  tag: '$(Build.BuildId)'
+  configMap: my-config
+  vmImageName: ubuntu-20.04
+
+
+stages:
+  - stage: CD
+    displayName: CD
+
+    pool:
+      vmImage: $(vmImageName)
+
+    jobs:
+    - deployment: Deploy
+      displayName: Deploy
+      environment: 'scicoriabd.development'
+      strategy:
+        runOnce:
+          deploy:
+            steps:
+              - task: Kubernetes@1
+                displayName: 'Create ConfigMap'
+                inputs:
+                  connectionType: Kubernetes Service Connection
+                  kubernetesServiceEndpoint: scicoriabd-scicoriabd-development-1627985149772
+                  namespace: development
+                  forceUpdateConfigMap: true
+                  configMapName: $(configMap)
+                  configMapArguments: >
+                    --from-file $(Pipeline.Workspace)/game.properties
+                    --from-literal=azure.application-insights.instrumentation-key=$(yq e '.azure.application-insights.instrumentation-key' $(Pipeline.Workspace)/app.yml)
+                    --from-file=application.yml=app.yml
+
+
+              - task: KubernetesManifest@0
+                displayName: Deploy to Kubernetes cluster
+                inputs:
+                  action: deploy
+                  manifests: $(Pipeline.Workspace)/deployment.yaml
+
