@@ -7,6 +7,7 @@ spec:
     - name: test-container
       image: gcr.io/kuar-demo/kuard-amd64:blue
       imagePullPolicy: Always
+      
       command:
         - "/kuard"
         # - "$(EXTRA_PARAM)" 
@@ -18,7 +19,12 @@ spec:
               key: game.properties  #: enemies.cheat.level
               optional: true
               
-      
+        - name: SPRING_BOOT
+          valueFrom:
+            configMapKeyRef:
+              name: my-config
+              key: appplication.yml
+              optional: true
         # - name: SPECIAL_LEVEL_KEY
         #   valueFrom:
         #     configMapKeyRef:
