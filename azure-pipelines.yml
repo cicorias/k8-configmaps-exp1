@@ -69,5 +69,5 @@ stages:
                 displayName: Deploy to Kubernetes cluster
                 inputs:
                   action: deploy
-                  manifests: $(Pipeline.Workspace)/deployment.yaml
+                  manifests: $(Pipeline.Workspace)/allfiles/deployment.yaml
 
